@@ -89,9 +89,9 @@ export const EXPLORE_PROFILES: ExploreProfile[] = [
 ];
 
 export const FILTER_CATEGORIES = [
-  { id: "all",      label: "✨ All" },
-  { id: "nearby",   label: "📍 Nearby" },
-  { id: "online",   label: "🟢 Online" },
-  { id: "verified", label: "✅ Verified" },
-  { id: "new",      label: "🆕 New" },
+  { id: "all",      label: "All" },
+  { id: "nearby",   label: "Nearby" },
+  { id: "online",   label: "Online" },
+  { id: "verified", label: "Verified" },
+  { id: "new",      label: "New" },
 ];

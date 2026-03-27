@@ -102,7 +102,9 @@ export default function ExploreScreen() {
       {/* ── Grid ── */}
       {filtered.length === 0 ? (
         <View className="flex-1 items-center justify-center gap-2">
-          <Text className="text-4xl mb-2">🔍</Text>
+          <View className="w-16 h-16 rounded-full bg-surface border border-border items-center justify-center mb-3">
+            <StyledIonicons name="search" size={32} className="text-foreground/20" />
+          </View>
           <Text className="text-foreground font-bold text-lg">No results found</Text>
           <Text className="text-foreground/40 text-sm">Try a different name or filter</Text>
         </View>
