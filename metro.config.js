@@ -1,9 +1,13 @@
 const { getDefaultConfig } = require('expo/metro-config');
 const { withUniwindConfig } = require('uniwind/metro');
-const exclusionList = require('metro-config/src/defaults/exclusionList');
 
 const config = getDefaultConfig(__dirname);
-config.resolver.blockList = exclusionList([/.*\.agents.*/]);
+
+const blockList = Array.isArray(config.resolver.blockList) 
+  ? config.resolver.blockList 
+  : (config.resolver.blockList ? [config.resolver.blockList] : []);
+blockList.push(/.*\.agents.*/);
+config.resolver.blockList = blockList;
 
 module.exports = withUniwindConfig(config, {
   cssEntryFile: './global.css',
