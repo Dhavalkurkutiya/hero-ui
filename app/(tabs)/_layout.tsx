@@ -1,5 +1,5 @@
-import { Tabs } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { Tabs } from "expo-router";
 import { useColorScheme, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -27,6 +27,7 @@ export default function TabLayout() {
         },
       }}
     >
+      {/* 1 — Home */}
       <Tabs.Screen
         name="index"
         options={{
@@ -45,26 +46,16 @@ export default function TabLayout() {
           ),
         }}
       />
+
+      {/* 2 — Explore (hidden from tab bar) */}
       <Tabs.Screen
         name="explore"
-        options={{
-          tabBarIcon: ({ color, focused }) => (
-            <View
-              className={`items-center justify-center rounded-2xl w-12 h-12 ${
-                focused ? "bg-red-500/10" : ""
-              }`}
-            >
-              <Ionicons
-                name={focused ? "grid" : "grid-outline"}
-                size={26}
-                color={color}
-              />
-            </View>
-          ),
-        }}
+        options={{ href: null }}
       />
+
+      {/* 3 — Messages */}
       <Tabs.Screen
-        name="notifications"
+        name="messages"
         options={{
           tabBarIcon: ({ color, focused }) => (
             <View
@@ -81,6 +72,8 @@ export default function TabLayout() {
           ),
         }}
       />
+
+      {/* 4 — Profile (last) */}
       <Tabs.Screen
         name="profile"
         options={{
