@@ -1,6 +1,9 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import React from "react";
-import { Pressable, StyleSheet, useColorScheme, View } from "react-native";
+import { Pressable, View } from "react-native";
+import { withUniwind } from "uniwind";
+
+const StyledIonicons = withUniwind(Ionicons);
 
 interface ActionButtonsProps {
   onDislike: () => void;
@@ -9,77 +12,31 @@ interface ActionButtonsProps {
 }
 
 export function ActionButtons({ onDislike, onSuperLike, onLike }: ActionButtonsProps) {
-  const dark = useColorScheme() === "dark";
-  const btnBg = dark ? "#1c1c1e" : "#fff";
-  const shadowColor = dark ? "#000" : "#000";
-
   return (
-    <View style={styles.container}>
+    <View className="flex-row items-center justify-center gap-5 mt-5 pb-1">
       {/* Nope */}
       <Pressable
-        style={({ pressed }) => [
-          styles.btn,
-          styles.btnLg,
-          { backgroundColor: btnBg, shadowColor, borderColor: "rgba(239,68,68,0.25)" },
-          pressed && styles.pressed,
-        ]}
+        className="w-16 h-16 rounded-full bg-surface border border-red-500/20 items-center justify-center shadow-lg active:scale-95"
         onPress={onDislike}
       >
-        <Ionicons name="close" size={34} color="#ef4444" />
+        <StyledIonicons name="close" size={34} className="text-red-500" />
       </Pressable>
 
       {/* Super Like */}
       <Pressable
-        style={({ pressed }) => [
-          styles.btn,
-          styles.btnMd,
-          { backgroundColor: btnBg, shadowColor, borderColor: "rgba(59,130,246,0.25)" },
-          pressed && styles.pressed,
-        ]}
+        className="w-14 h-14 rounded-full bg-surface border border-blue-500/20 items-center justify-center shadow-lg active:scale-95"
         onPress={onSuperLike}
       >
-        <Ionicons name="star" size={26} color="#3b82f6" />
+        <StyledIonicons name="star" size={26} className="text-blue-500" />
       </Pressable>
 
       {/* Like */}
       <Pressable
-        style={({ pressed }) => [
-          styles.btn,
-          styles.btnLg,
-          { backgroundColor: btnBg, shadowColor, borderColor: "rgba(34,197,94,0.25)" },
-          pressed && styles.pressed,
-        ]}
+        className="w-16 h-16 rounded-full bg-surface border border-green-500/20 items-center justify-center shadow-lg active:scale-95"
         onPress={onLike}
       >
-        <Ionicons name="heart" size={30} color="#22c55e" />
+        <StyledIonicons name="heart" size={30} className="text-green-500" />
       </Pressable>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 20,
-    marginTop: 20,
-    paddingBottom: 4,
-  },
-  btn: {
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 999,
-    borderWidth: 1.5,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.14,
-    shadowRadius: 10,
-    elevation: 6,
-  },
-  btnLg: { width: 64, height: 64 },
-  btnMd: { width: 54, height: 54 },
-  pressed: {
-    transform: [{ scale: 0.92 }],
-    opacity: 0.85,
-  },
-});
