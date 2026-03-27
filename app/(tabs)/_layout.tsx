@@ -47,10 +47,24 @@ export default function TabLayout() {
         }}
       />
 
-      {/* 2 — Explore (hidden from tab bar) */}
+      {/* 2 — Explore */}
       <Tabs.Screen
         name="explore"
-        options={{ href: null }}
+        options={{
+          tabBarIcon: ({ color, focused }) => (
+            <View
+              className={`items-center justify-center rounded-2xl w-12 h-12 ${
+                focused ? "bg-red-500/10" : ""
+              }`}
+            >
+              <Ionicons
+                name={focused ? "compass" : "compass-outline"}
+                size={26}
+                color={color}
+              />
+            </View>
+          ),
+        }}
       />
 
       {/* 3 — Messages */}
