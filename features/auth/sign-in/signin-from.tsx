@@ -225,6 +225,15 @@ export const LoginForm = () => {
         </Button>
       </View>
 
+      {/* Skip Link */}
+      <View className="flex-row justify-center mt-6">
+        <Link href={"/(tabs)" as any} asChild>
+          <Pressable hitSlop={8}>
+            <Text className="text-sm font-semibold text-foreground/50 underline">Skip for now</Text>
+          </Pressable>
+        </Link>
+      </View>
+
       {/* Sign Up Link */}
       <View className="flex-row justify-center mt-5 mb-4 gap-2">
         <Text className="text-sm text-foreground/60 font-medium">
