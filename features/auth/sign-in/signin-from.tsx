@@ -174,7 +174,7 @@ export const LoginForm = () => {
         </ControlField>
 
         <Pressable hitSlop={8}>
-          <Text className="text-sm font-semibold text-primary">
+          <Text className="text-sm font-semibold text-blue-600 dark:text-blue-400">
             Forgot password?
           </Text>
         </Pressable>
@@ -232,7 +232,7 @@ export const LoginForm = () => {
         </Text>
         <Link href="/sign-up" asChild>
           <Pressable hitSlop={8}>
-            <Text className="text-sm font-bold text-primary">Sign up now</Text>
+            <Text className="text-sm font-bold text-blue-600 dark:text-blue-400">Sign up now</Text>
           </Pressable>
         </Link>
       </View>

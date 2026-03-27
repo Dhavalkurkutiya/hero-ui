@@ -205,8 +205,8 @@ export const SignUpForm = () => {
               </ControlField.Indicator>
               <Text className="text-sm font-medium text-foreground">
                 I agree to the{" "}
-                <Text className="text-primary font-bold">Terms</Text> &{" "}
-                <Text className="text-primary font-bold">Privacy Policy</Text>
+                <Text className="text-blue-600 dark:text-blue-400 font-bold">Terms</Text> &{" "}
+                <Text className="text-blue-600 dark:text-blue-400 font-bold">Privacy Policy</Text>
               </Text>
             </ControlField>
           )}
@@ -270,7 +270,7 @@ export const SignUpForm = () => {
         </Text>
         <Link href="/" asChild>
           <Pressable hitSlop={8}>
-            <Text className="text-sm font-bold text-primary">Sign in now</Text>
+            <Text className="text-sm font-bold text-blue-600 dark:text-blue-400">Sign in now</Text>
           </Pressable>
         </Link>
       </View>
