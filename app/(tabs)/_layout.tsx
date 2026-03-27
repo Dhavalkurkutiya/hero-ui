@@ -1,49 +1,102 @@
-import { Tabs } from 'expo-router';
-import { Home, Compass, Bell, User } from 'lucide-react-native';
-import { useColorScheme } from 'react-native';
+import { Tabs } from "expo-router";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { useColorScheme, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-  const isDark = colorScheme === 'dark';
+  const isDark = colorScheme === "dark";
+  const insets = useSafeAreaInsets();
 
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: isDark ? '#ffffff' : '#000000',
-        tabBarInactiveTintColor: isDark ? '#666666' : '#999999',
+        tabBarShowLabel: false,
+        tabBarActiveTintColor: "#ef4444", // Modern matching branding (Red-500)
+        tabBarInactiveTintColor: isDark ? "#666666" : "#999999",
         tabBarStyle: {
-          backgroundColor: isDark ? '#000000' : '#ffffff',
-          borderTopColor: isDark ? '#222222' : '#eeeeee',
+          backgroundColor: isDark ? "#09090b" : "#ffffff", // Pure matching background
+          borderTopWidth: 1,
+          borderTopColor: isDark ? "#27272a" : "#f4f4f5",
+          height: 60 + insets.bottom,
+          paddingTop: 10,
+          paddingBottom: insets.bottom,
+          elevation: 0,
+          shadowOpacity: 0,
         },
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color, size }) => <Home size={size} color={color} />,
+          tabBarIcon: ({ color, focused }) => (
+            <View
+              className={`items-center justify-center rounded-2xl w-12 h-12 ${
+                focused ? "bg-red-500/10" : ""
+              }`}
+            >
+              <Ionicons
+                name={focused ? "flame" : "flame-outline"}
+                size={28}
+                color={color}
+              />
+            </View>
+          ),
         }}
       />
       <Tabs.Screen
         name="explore"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color, size }) => <Compass size={size} color={color} />,
+          tabBarIcon: ({ color, focused }) => (
+            <View
+              className={`items-center justify-center rounded-2xl w-12 h-12 ${
+                focused ? "bg-red-500/10" : ""
+              }`}
+            >
+              <Ionicons
+                name={focused ? "grid" : "grid-outline"}
+                size={26}
+                color={color}
+              />
+            </View>
+          ),
         }}
       />
       <Tabs.Screen
         name="notifications"
         options={{
-          title: 'Notifications',
-          tabBarIcon: ({ color, size }) => <Bell size={size} color={color} />,
+          tabBarIcon: ({ color, focused }) => (
+            <View
+              className={`items-center justify-center rounded-2xl w-12 h-12 ${
+                focused ? "bg-red-500/10" : ""
+              }`}
+            >
+              <Ionicons
+                name={focused ? "chatbubbles" : "chatbubbles-outline"}
+                size={26}
+                color={color}
+              />
+            </View>
+          ),
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
-          title: 'Profile',
-          tabBarIcon: ({ color, size }) => <User size={size} color={color} />,
+          tabBarIcon: ({ color, focused }) => (
+            <View
+              className={`items-center justify-center rounded-2xl w-12 h-12 ${
+                focused ? "bg-red-500/10" : ""
+              }`}
+            >
+              <Ionicons
+                name={focused ? "person" : "person-outline"}
+                size={26}
+                color={color}
+              />
+            </View>
+          ),
         }}
       />
     </Tabs>
