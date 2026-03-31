@@ -51,7 +51,9 @@
   --color-tertiary: #c8c6c7;
   --color-surface-container-highest: #353436;
   --color-background: #131314;
-  --color-on-secondary-fixed-variant: #6900b3;
+  --color-secondary-fixed-variant: #6900b3;
   --color-outline: #ad8888;
   --color-secondary-container: #7900cd;
+  --color-foreground: #e5e2e3;
+  --color-border: #5d3f40;
 }

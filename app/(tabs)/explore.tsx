@@ -1,4 +1,4 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { MaterialIcons } from "@expo/vector-icons";
 import React, { useState } from "react";
 import {
   ScrollView,
@@ -8,14 +8,11 @@ import {
   Pressable,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { withUniwind } from "uniwind";
 import {
   EXPLORE_PROFILES,
   FILTER_CATEGORIES,
 } from "../../features/explore/data/explore";
 import { ExploreCard } from "../../features/explore/components/ExploreCard";
-
-const StyledIonicons = withUniwind(Ionicons);
 
 export default function ExploreScreen() {
   const insets = useSafeAreaInsets();
@@ -43,28 +40,43 @@ export default function ExploreScreen() {
   const rightCol = filtered.filter((_, i) => i % 2 !== 0);
 
   return (
-    <View className="flex-1 bg-background lg:bg-surface-secondary/30">
-      <View className="flex-1 max-w-[800px] w-full self-center bg-background md:shadow-xl md:border-x md:border-border" style={{ paddingTop: insets.top }}>
+    <View className="flex-1 bg-surface">
+      {/* Shared APNU TopAppBar */}
+      <View 
+        className="absolute top-0 w-full flex-row justify-between items-center px-6 bg-surface/90 border-b border-outline-variant/20 z-50 backdrop-blur-xl"
+        style={{ paddingTop: Math.max(insets.top, 16), paddingBottom: 16 }}
+      >
+        <View className="flex-row items-center gap-2">
+          <MaterialIcons name="verified" size={24} color="#FF2D55" />
+          <Text className="font-extrabold italic text-2xl uppercase text-[#E5E2E3]">
+            APNU
+          </Text>
+        </View>
+        <Pressable className="active:scale-95 transition-transform duration-200 p-2">
+          <MaterialIcons name="tune" size={24} className="text-[#E5E2E3]/70" />
+        </Pressable>
+      </View>
 
+      <View className="flex-1 w-full max-w-[600px] self-center" style={{ paddingTop: insets.top + 80 }}>
         {/* ── Header ── */}
-        <View className="px-5 pt-3 pb-2">
-          <Text className="text-foreground text-2xl font-extrabold tracking-tight mb-3">
+        <View className="px-6 pt-4 pb-2">
+          <Text className="text-on-surface text-2xl font-extrabold font-headline tracking-tight mb-4">
             Explore
           </Text>
 
           {/* Search Bar */}
-          <View className="flex-row items-center bg-surface border border-border rounded-2xl px-3 py-2.5 gap-2 mb-3 shadow-sm">
-            <StyledIonicons name="search" size={18} className="text-foreground/40" />
+          <View className="flex-row items-center bg-surface-container-lowest/50 border border-outline-variant/20 rounded-2xl px-4 py-3 gap-2 mb-4 shadow-sm">
+            <MaterialIcons name="search" size={20} className="text-on-surface/40" />
             <TextInput
               value={search}
               onChangeText={setSearch}
-              placeholder="Search name or interest..."
-              placeholderTextColor="rgba(120,120,120,0.6)"
-              className="flex-1 text-foreground text-sm"
+              placeholder="Search by name or interests..."
+              placeholderTextColor="rgba(229,226,227,0.4)"
+              className="flex-1 text-on-surface text-sm font-body"
             />
             {search.length > 0 && (
-              <Pressable onPress={() => setSearch("")}>
-                <StyledIonicons name="close-circle" size={18} className="text-foreground/30" />
+              <Pressable onPress={() => setSearch("")} className="p-1 active:scale-90">
+                <MaterialIcons name="cancel" size={20} className="text-on-surface/30" />
               </Pressable>
             )}
           </View>
@@ -73,28 +85,22 @@ export default function ExploreScreen() {
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{ gap: 8, paddingBottom: 4 }}
+            contentContainerStyle={{ gap: 8, paddingBottom: 8 }}
           >
             {FILTER_CATEGORIES.map((cat) => {
               const active = activeFilter === cat.id;
               return (
-                <Pressable
-                  key={cat.id}
-                  onPress={() => setActiveFilter(cat.id)}
-                  className={`px-4 py-1.5 rounded-full border ${
-                    active
-                      ? "bg-red-500 border-red-500"
-                      : "bg-surface border-border"
-                  }`}
-                >
-                  <Text
-                    className={`text-sm font-semibold ${
-                      active ? "text-white" : "text-foreground/60"
-                    }`}
-                  >
-                    {cat.label}
-                  </Text>
-                </Pressable>
+               <Pressable
+                 key={cat.id}
+                 onPress={() => setActiveFilter(cat.id)}
+                 className={`px-4 py-2 rounded-lg border ${
+                   active ? "bg-primary-container border-primary-container/20 shadow-lg" : "bg-surface-container-high/60 border-outline-variant/20"
+                 }`}
+               >
+                 <Text className={`text-[11px] uppercase tracking-wider font-bold ${active ? "text-white" : "text-on-surface-variant"}`}>
+                   {cat.label}
+                 </Text>
+               </Pressable>
               );
             })}
           </ScrollView>
@@ -102,40 +108,42 @@ export default function ExploreScreen() {
 
         {/* ── Grid ── */}
         {filtered.length === 0 ? (
-          <View className="flex-1 items-center justify-center gap-2">
-            <View className="w-16 h-16 rounded-full bg-surface border border-border items-center justify-center mb-3">
-              <StyledIonicons name="search" size={32} className="text-foreground/20" />
+          <View className="flex-1 items-center justify-center gap-4">
+            <View className="w-16 h-16 rounded-full bg-surface-container-lowest/50 border border-outline-variant/20 items-center justify-center mb-2">
+              <MaterialIcons name="search-off" size={32} className="text-on-surface/20" />
             </View>
-            <Text className="text-foreground font-bold text-lg">No results found</Text>
-            <Text className="text-foreground/40 text-sm">Try a different name or filter</Text>
+            <Text className="text-on-surface font-extrabold font-headline text-lg">No sparks found</Text>
+            <Text className="text-on-surface/40 text-sm font-body">Try adjusting your filters</Text>
           </View>
         ) : (
           <ScrollView
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 12, paddingBottom: insets.bottom + 16 }}
+            contentContainerStyle={{ paddingHorizontal: 24, paddingTop: 12, paddingBottom: insets.bottom + 100 }}
           >
-            <View className="flex-row gap-2 items-start">
+            <View className="flex-row gap-4 items-start">
               {/* Left column */}
-              <View className="flex-1 gap-2">
+              <View className="flex-1 gap-4">
                 {leftCol.map((profile, i) => (
-                  <ExploreCard
-                    key={profile.id}
-                    profile={profile}
-                    tall={i % 3 === 1}
-                    onPress={() => {}}
-                  />
+                  <View key={profile.id} className="rounded-2xl overflow-hidden border border-outline-variant/10 shadow-lg">
+                    <ExploreCard
+                      profile={profile}
+                      tall={i % 3 === 1}
+                      onPress={() => {}}
+                    />
+                  </View>
                 ))}
               </View>
 
               {/* Right column */}
-              <View className="flex-1 gap-2">
+              <View className="flex-1 gap-4">
                 {rightCol.map((profile, i) => (
-                  <ExploreCard
-                    key={profile.id}
-                    profile={profile}
-                    tall={i % 3 === 0}
-                    onPress={() => {}}
-                  />
+                  <View key={profile.id} className="rounded-2xl overflow-hidden border border-outline-variant/10 shadow-lg">
+                    <ExploreCard
+                      profile={profile}
+                      tall={i % 3 === 0}
+                      onPress={() => {}}
+                    />
+                  </View>
                 ))}
               </View>
             </View>
