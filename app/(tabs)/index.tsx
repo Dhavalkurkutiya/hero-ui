@@ -24,8 +24,8 @@ export default function HomeScreen() {
   const triggerSwipeRight = () => swipeableRef.current?.swipeRight();
 
   return (
-    <GestureHandlerRootView className="flex-1">
-      <View className="flex-1 bg-background" style={{ paddingTop: insets.top }}>
+    <GestureHandlerRootView className="flex-1 bg-background lg:bg-surface-secondary/30">
+      <View className="flex-1 max-w-[500px] w-full self-center bg-background md:shadow-xl md:border-x md:border-border" style={{ paddingTop: insets.top }}>
 
         {/* ── Header ── */}
         <View className="flex-row items-center justify-between px-5 py-2.5">
