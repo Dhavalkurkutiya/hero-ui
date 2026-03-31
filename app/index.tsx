@@ -8,7 +8,7 @@ export default function HomeScreen() {
   return (
     <>
       <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
-      <Redirect href={"/sign-in" as any} />
+      <Redirect href={"/onboarding" as any} />
     </>
   );
 }
