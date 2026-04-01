@@ -1,7 +1,10 @@
-import { View, Text, Image, TextInput, Pressable, ScrollView, Dimensions } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { Link, router } from "expo-router";
 import { MaterialIcons } from "@expo/vector-icons";
+import { router } from "expo-router";
+import * as Haptics from "expo-haptics";
+import React from "react";
+import { Dimensions, Image, Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import Animated, { FadeInUp } from "react-native-reanimated";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function VerifyCollegeScreen() {
   const { width } = Dimensions.get('window');
@@ -16,18 +19,21 @@ export default function VerifyCollegeScreen() {
             APNU
           </Text>
         </View>
-        <Pressable onPress={() => router.back()} className="active:scale-95 transition-transform p-2">
+        <Pressable onPress={() => {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+            router.back();
+        }} className="active:scale-95 transition-transform p-2">
           <MaterialIcons name="close" size={24} className="text-[#E5E2E3]/70" />
         </Pressable>
       </SafeAreaView>
 
-      <ScrollView 
+      <ScrollView
         className="flex-1"
         contentContainerStyle={{ paddingTop: 100, paddingBottom: 160, paddingHorizontal: 24, gap: 48 }}
         showsVerticalScrollIndicator={false}
       >
         {/* Hero Branding */}
-        <View className="flex-col gap-4">
+        <Animated.View entering={FadeInUp.delay(100).springify().damping(14)} className="flex-col gap-4">
           <View className="flex-row items-center gap-2">
             <View className="w-8 h-[1px] bg-primary-container" />
             <Text className="text-primary-container text-[11px] font-bold uppercase tracking-[0.2em]">
@@ -41,7 +47,7 @@ export default function VerifyCollegeScreen() {
           <Text className="text-on-surface/60 text-base leading-relaxed max-w-sm mt-2">
             Connect your academic identity to unlock the exclusive digital concierge ecosystem of APNU.
           </Text>
-        </View>
+        </Animated.View>
 
         {/* Search Section */}
         <View className="flex-col gap-6">
@@ -49,30 +55,31 @@ export default function VerifyCollegeScreen() {
             <View className="absolute left-4 z-10">
               <MaterialIcons name="search" size={20} className="text-on-surface/30" />
             </View>
-            <TextInput 
+            <TextInput
               placeholder="Find your university..."
               placeholderTextColor="rgba(229, 226, 227, 0.2)"
               className="w-full bg-surface-container-lowest border border-outline-variant/20 rounded-xl py-4 pl-12 pr-4 text-on-surface text-base"
               style={{ backgroundColor: 'rgba(32, 31, 32, 0.6)' }}
             />
           </View>
-          
-          <View className="flex-row flex-wrap gap-2">
+
+          <Animated.View entering={FadeInUp.delay(200).springify().damping(14)} className="flex-row flex-wrap gap-2">
             {['IIT Delhi', 'SRCC', 'BITS Pilani', 'LSR'].map((college) => (
-              <Pressable 
-                key={college} 
+              <Pressable
+                key={college}
+                onPress={() => Haptics.selectionAsync()}
                 className="px-4 py-2 rounded-md bg-surface-container-high border border-outline-variant/10 active:scale-95"
               >
                 <Text className="text-on-surface/80 text-xs font-medium tracking-wide">{college}</Text>
               </Pressable>
             ))}
-          </View>
+          </Animated.View>
         </View>
 
         {/* Verification Methods */}
-        <View className="flex-col gap-4 mt-4">
+        <Animated.View entering={FadeInUp.delay(300).springify().damping(14)} className="flex-col gap-4 mt-4">
           {/* EDU Email Card */}
-          <Pressable className="overflow-hidden rounded-xl border border-outline-variant/20 bg-surface-container-low p-6 active:scale-[0.98] mb-4">
+          <Pressable onPress={() => Haptics.selectionAsync()} className="overflow-hidden rounded-xl border border-outline-variant/20 bg-surface-container-low p-6 active:scale-[0.98] mb-4">
             <View className="flex-col gap-8">
               <View className="flex-row justify-between items-start">
                 <View className="w-10 h-10 rounded-full bg-primary-container/10 flex items-center justify-center">
@@ -90,7 +97,7 @@ export default function VerifyCollegeScreen() {
           </Pressable>
 
           {/* Upload ID Card */}
-          <Pressable className="overflow-hidden rounded-xl border border-outline-variant/20 bg-surface-container-low p-6 active:scale-[0.98]">
+          <Pressable onPress={() => Haptics.selectionAsync()} className="overflow-hidden rounded-xl border border-outline-variant/20 bg-surface-container-low p-6 active:scale-[0.98]">
             <View className="flex-col gap-8">
               <View className="flex-row justify-between items-start">
                 <View className="w-10 h-10 rounded-full bg-secondary-container/20 flex items-center justify-center">
@@ -106,11 +113,11 @@ export default function VerifyCollegeScreen() {
               </View>
             </View>
           </Pressable>
-        </View>
+        </Animated.View>
 
         {/* Visual Anchor / Editorial Image */}
         <View className="w-full aspect-[21/9] rounded-xl overflow-hidden border border-outline-variant/10 mt-4 relative">
-          <Image 
+          <Image
             source={{ uri: "https://lh3.googleusercontent.com/aida-public/AB6AXuB1L7ytvGokKCZuOjvKWXQAZJJHY6bDtVX56zIsoieCpfEDgS5h2LHuWzt5N71JrjN1zXiinKBKYbB--x7vaKwWPD1EFl8f2yrN4wSoJAvGzROaozp2cltIqKlmpDWvGlCxw9Kfr5mvEbhOGv4ZyvwIgYAlNII76gM6RAo6FqV5diQ5kgAHq74AWtQ3xHRkGoyZonM2NFIu6qcBTcd2HWRux6TJOnpvxK3xo1qH-dMxSWaX-OrX0iZCs-nmFcHwIobLDbkTAj_R6h4" }}
             className="w-full h-full opacity-50"
             resizeMode="cover"
@@ -132,7 +139,13 @@ export default function VerifyCollegeScreen() {
 
       {/* Fixed Footer CTA */}
       <SafeAreaView edges={['bottom']} className="absolute bottom-0 w-full px-6 py-8 border-t border-outline-variant/10 bg-surface/90 flex-col items-center gap-4 z-50">
-        <Pressable className="w-full max-w-md py-4 rounded-full bg-primary-container text-white active:scale-95 transition-all items-center shadow-lg">
+        <Pressable
+          onPress={() => {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+            router.push('/setup-profile' as any);
+          }}
+          className="w-full max-w-md py-4 rounded-full bg-primary-container text-white active:scale-95 transition-all items-center shadow-lg"
+        >
           <Text className="text-white font-bold text-[12px] uppercase tracking-[0.1em]">
             Continue
           </Text>
